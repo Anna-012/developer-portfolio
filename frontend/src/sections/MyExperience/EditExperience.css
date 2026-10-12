@@ -1,0 +1,150 @@
+.edit-experience-section {
+  padding: 10px 10%;
+  background: #ffffff;
+  min-height: 400px;
+}
+
+.edit-experience-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Header */
+
+.edit-experience-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 35px;
+}
+
+.edit-experience-header h2 {
+  margin: 0;
+  font-size: 42px;
+}
+
+/* Form */
+
+.edit-experience-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Form group */
+
+.edit-experience-container .experience-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.edit-experience-container .experience-form-group label {
+  font-size: 16px;
+  font-weight: 600;
+  color: #222;
+}
+
+/* Inputs */
+
+.edit-experience-container input,
+.edit-experience-container textarea {
+  width: 100%;
+  box-sizing: border-box;
+
+  padding: 13px 15px;
+
+  border: 1px solid #ddd;
+  border-radius: 8px;
+
+  background: #fff;
+
+  font-family: inherit;
+  font-size: 16px;
+
+  outline: none;
+
+  transition: 0.2s ease;
+}
+
+.edit-experience-container input:focus,
+.edit-experience-container textarea:focus {
+  border-color: #222;
+}
+
+.edit-experience-container textarea {
+  resize: vertical;
+  min-height: 130px;
+}
+
+/* Update button */
+
+.save-edit-experience-btn {
+  align-self: flex-start;
+
+  padding: 12px 20px;
+
+  border: 1px solid #222;
+  border-radius: 8px;
+
+  background: #111;
+  color: white;
+
+  font-size: 16px;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.save-edit-experience-btn:hover {
+  background: #333;
+}
+
+.save-edit-experience-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Cancel button */
+
+.cancel-edit-experience-btn {
+  padding: 12px 20px;
+
+  border: 1px solid #ddd;
+  border-radius: 8px;
+
+  background: white;
+  color: #222;
+
+  font-size: 16px;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.cancel-edit-experience-btn:hover {
+  background: #f2f2f2;
+}
+
+/* Mobile */
+
+@media (max-width: 700px) {
+  .edit-experience-section {
+    padding: 10px 6%;
+  }
+
+  .edit-experience-header {
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .edit-experience-header h2 {
+    font-size: 32px;
+  }
+
+  .cancel-edit-experience-btn {
+    padding: 10px 15px;
+  }
+}

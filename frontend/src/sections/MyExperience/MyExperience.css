@@ -1,0 +1,82 @@
+.experience-section {
+  padding: 10px 10%;
+  background: #ffffff;
+}
+
+.experience-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 35px;
+}
+
+.experience-header h2 {
+  font-size: 42px;
+  margin: 0 0 8px;
+}
+
+.experience-header p {
+  margin: 0;
+  color: #666;
+  font-size: 16px;
+}
+
+/* Add button */
+
+.add-experience-btn {
+  padding: 12px 20px;
+  border: 1px solid #222;
+  border-radius: 8px;
+  background: #111;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.add-experience-btn span {
+  font-size: 20px;
+  margin-right: 6px;
+}
+
+.add-experience-btn:hover {
+  background: #333;
+}
+
+/* Experience list */
+
+.experience-list {
+  max-height: 500px;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+/* Empty state */
+
+.no-experience {
+  color: #777;
+  font-size: 16px;
+  margin: 0;
+}
+
+/* Mobile */
+
+@media (max-width: 700px) {
+  .experience-section {
+    padding: 10px 6%;
+  }
+
+  .experience-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .experience-header h2 {
+    font-size: 34px;
+  }
+
+  .add-experience-btn {
+    width: 100%;
+  }
+}

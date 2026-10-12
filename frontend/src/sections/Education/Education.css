@@ -1,0 +1,160 @@
+.education-section {
+  padding: 10px 10%;
+  background: #ffffff;
+}
+
+.education-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 35px;
+}
+
+.education-header h2 {
+  font-size: 42px;
+  margin: 0;
+}
+
+/* Add button */
+
+.add-education-btn {
+  padding: 12px 20px;
+  border: 1px solid #222;
+  border-radius: 8px;
+  background: #111;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.add-education-btn span {
+  font-size: 20px;
+  margin-right: 6px;
+}
+
+.add-education-btn:hover {
+  background: #333;
+}
+
+/* Education list */
+
+.education-list {
+  max-height: 500px;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+/* Education card */
+
+.education-card {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  padding: 30px;
+
+  margin-bottom: 20px;
+
+  border: 1px solid #ddd;
+  border-radius: 14px;
+
+  background: #fff;
+
+  transition: 0.25s ease;
+}
+
+.education-card:hover {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+/* Graduation icon */
+
+.education-icon {
+  width: 70px;
+  height: 70px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-right: 25px;
+
+  border-radius: 50%;
+  background: #f2f2f2;
+
+  font-size: 32px;
+}
+
+/* Education information */
+
+.education-info {
+  flex: 1;
+}
+
+.education-info h3 {
+  margin: 0 0 8px;
+  font-size: 28px;
+}
+
+.education-description {
+  margin: 0 0 12px;
+  color: #666;
+  font-size: 16px;
+}
+
+.education-info h4 {
+  margin: 0 0 8px;
+  font-size: 18px;
+}
+
+.education-year {
+  margin: 0;
+  color: #777;
+}
+
+/* Edit / Delete */
+
+.education-actions {
+  position: absolute;
+
+  top: 20px;
+  right: 20px;
+
+  display: flex;
+  gap: 8px;
+
+  opacity: 0;
+  visibility: hidden;
+
+  transition: 0.2s ease;
+}
+
+.education-card:hover .education-actions {
+  opacity: 1;
+  visibility: visible;
+}
+
+.edit-education-btn,
+.delete-education-btn {
+  width: 40px;
+  height: 40px;
+
+  border: 1px solid #ddd;
+  border-radius: 8px;
+
+  background: white;
+
+  cursor: pointer;
+
+  font-size: 17px;
+}
+
+.edit-education-btn:hover {
+  background: #f2f2f2;
+}
+
+.delete-education-btn:hover {
+  background: #ffe5e5;
+}

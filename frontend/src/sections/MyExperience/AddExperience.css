@@ -1,0 +1,148 @@
+.add-experience-section {
+  padding: 10px 10%;
+  background: #ffffff;
+  min-height: 400px;
+}
+
+.add-experience-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Header */
+
+.add-experience-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 35px;
+}
+
+.add-experience-header h2 {
+  margin: 0;
+  font-size: 42px;
+}
+
+/* Form */
+
+.add-experience-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Form group */
+
+.experience-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.experience-form-group label {
+  font-size: 16px;
+  font-weight: 600;
+  color: #222;
+}
+
+/* Inputs */
+
+.experience-form-group input,
+.experience-form-group textarea {
+  width: 100%;
+  box-sizing: border-box;
+
+  padding: 13px 15px;
+
+  border: 1px solid #ddd;
+  border-radius: 8px;
+
+  background: #fff;
+
+  font-family: inherit;
+  font-size: 16px;
+
+  outline: none;
+
+  transition: 0.2s ease;
+}
+
+.experience-form-group input:focus,
+.experience-form-group textarea:focus {
+  border-color: #222;
+}
+
+.experience-form-group textarea {
+  resize: vertical;
+  min-height: 130px;
+}
+
+/* Buttons */
+
+.save-experience-btn,
+.cancel-experience-btn {
+  padding: 12px 20px;
+
+  border-radius: 8px;
+
+  font-size: 16px;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+/* Save */
+
+.save-experience-btn {
+  align-self: flex-start;
+
+  border: 1px solid #222;
+
+  background: #111;
+  color: white;
+}
+
+.save-experience-btn:hover {
+  background: #333;
+}
+
+.save-experience-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Cancel */
+
+.cancel-experience-btn {
+  border: 1px solid #ddd;
+
+  background: white;
+  color: #222;
+}
+
+.cancel-experience-btn:hover {
+  background: #f2f2f2;
+}
+
+/* Mobile */
+
+@media (max-width: 700px) {
+  .add-experience-section {
+    padding: 10px 6%;
+  }
+
+  .add-experience-header {
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .add-experience-header h2 {
+    font-size: 32px;
+  }
+
+  .cancel-experience-btn {
+    padding: 10px 15px;
+  }
+}

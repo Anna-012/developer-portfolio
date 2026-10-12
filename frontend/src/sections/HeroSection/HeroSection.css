@@ -1,0 +1,56 @@
+.hero-section {
+  width: 100%;
+  padding: 80px 10% 60px;
+  box-sizing: border-box;
+  background: #ffffff;
+}
+
+.hero-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* Edit Profile button */
+
+.edit-profile-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  padding: 10px 20px;
+
+  font-size: 16px;
+
+  background: white;
+  color: #111;
+
+  border: 1px solid #222;
+  border-radius: 6px;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.edit-profile-btn:hover {
+  background: #111;
+  color: white;
+}
+
+/* Mobile */
+
+@media (max-width: 700px) {
+  .hero-section {
+    padding: 50px 6% 50px;
+  }
+
+  .edit-profile-btn {
+    position: static;
+    display: block;
+
+    margin-left: auto;
+    margin-bottom: 30px;
+  }
+}

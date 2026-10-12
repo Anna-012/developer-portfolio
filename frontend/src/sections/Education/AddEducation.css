@@ -1,0 +1,125 @@
+/* Add Education Section */
+
+.education-form-section {
+  width: 100%;
+  min-height: 80vh;
+  padding: 60px 8%;
+  box-sizing: border-box;
+  background: #ffffff;
+}
+
+.education-form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 35px;
+}
+
+.education-form-header h2 {
+  font-size: 42px;
+  margin: 0;
+}
+
+/* Header Cancel button */
+
+.education-form-header button {
+  padding: 10px 20px;
+  background: white;
+  border: 1px solid #222;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.education-form-header button:hover {
+  background: #f2f2f2;
+}
+
+/* Form */
+
+.education-form {
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Form fields */
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px 14px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+  font-family: inherit;
+  outline: none;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #222;
+}
+
+.form-group textarea {
+  resize: vertical;
+}
+
+/* Start Year + End Year */
+
+.form-row {
+  display: flex;
+  gap: 20px;
+}
+
+.form-row .form-group {
+  flex: 1;
+}
+
+/* Bottom buttons */
+
+.education-form-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.education-form-actions button {
+  padding: 12px 22px;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.education-form-actions button:first-child {
+  background: white;
+  color: #111;
+  border: 1px solid #222;
+}
+
+.education-form-actions button:first-child:hover {
+  background: #f2f2f2;
+}
+
+.education-form-actions button:last-child {
+  background: #111;
+  color: white;
+  border: 1px solid #111;
+}
+
+.education-form-actions button:last-child:hover {
+  background: #333;
+}

@@ -1,0 +1,133 @@
+.skills-section {
+  padding: 10px 10%;
+  background: #ffffff;
+  margin-top: 40px;
+}
+
+.skills-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 35px;
+}
+
+.skills-header h2 {
+  font-size: 42px;
+  margin: 0;
+}
+
+/* Add button */
+
+.add-skill-btn {
+  padding: 12px 20px;
+  border: 1px solid #222;
+  border-radius: 8px;
+  background: #111;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.add-skill-btn span {
+  font-size: 20px;
+  margin-right: 6px;
+}
+
+.add-skill-btn:hover {
+  background: #333;
+}
+
+/* Skills list */
+
+.skills-list {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+/* Skill card */
+
+.skill-card {
+  position: relative;
+  width: 90px;
+  height: 90px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background: #fff;
+
+  transition: 0.2s ease;
+}
+
+.skill-card:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* Skill icon */
+
+.skill-icon {
+  font-size: 28px;
+  margin-bottom: 6px;
+}
+
+/* Skill name */
+
+.skill-card p {
+  margin: 0;
+  font-size: 14px;
+  text-align: center;
+}
+
+/* Delete button */
+
+.delete-skill-btn {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+
+  width: 22px;
+  height: 22px;
+
+  border: none;
+  border-radius: 5px;
+  background: white;
+
+  cursor: pointer;
+  font-size: 11px;
+
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.2s ease;
+}
+
+.skill-card:hover .delete-skill-btn {
+  opacity: 1;
+  visibility: visible;
+}
+
+.skills-container {
+  width: 100%;
+}
+
+.skill-category {
+  margin-bottom: 35px;
+}
+
+.skill-category h3 {
+  font-size: 22px;
+  margin: 0 0 18px;
+}
+
+.skills-list {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
