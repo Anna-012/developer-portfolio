@@ -1,3 +1,13 @@
+.projects-section * {
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    sans-serif !important;
+}
+
 .projects-section {
   padding: 80px 10%;
   background: #ffffff;
@@ -29,7 +39,15 @@
   border-radius: 8px;
   background: #111;
   color: white;
-  font-size: 16px;
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+  font-size: 14px;
+  font-weight: 500;
   cursor: pointer;
   transition: 0.2s ease;
 }

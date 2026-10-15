@@ -1,36 +1,64 @@
-import { useState } from "react";
-import { updateExperience } from "../../api/experienceApi";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { getExperiences, updateExperience } from "../../api/experienceApi";
 import "./EditExperience.css";
 
-const EditExperience = ({
-  experience,
-  setExperiences,
-  setEditingExperience,
-}) => {
+const EditExperience = () => {
+  const navigate = useNavigate();
+  const { id } = useParams();
+
+  const [formData, setFormData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
   // Convert MongoDB date to DD/MM/YYYY
   const formatDateForInput = (date) => {
     if (!date) return "";
 
     const d = new Date(date);
 
-    const day = String(d.getDate()).padStart(2, "0");
-    const month = String(d.getMonth() + 1).padStart(2, "0");
-    const year = d.getFullYear();
+    if (Number.isNaN(d.getTime())) return "";
+
+    const day = String(d.getUTCDate()).padStart(2, "0");
+    const month = String(d.getUTCMonth() + 1).padStart(2, "0");
+    const year = d.getUTCFullYear();
 
     return `${day}/${month}/${year}`;
   };
 
-  const [formData, setFormData] = useState({
-    company: experience.company || "",
-    role: experience.role || "",
-    startDate: formatDateForInput(experience.startDate),
-    endDate: formatDateForInput(experience.endDate),
-    description: experience.description || "",
-  });
+  // Fetch selected experience using URL ID
+  useEffect(() => {
+    const fetchExperience = async () => {
+      try {
+        setError("");
 
-  const [loading, setLoading] = useState(false);
+        const response = await getExperiences();
+        const records = response.data.data;
 
-  // Handle input changes
+        const selectedExperience = records.find((item) => item._id === id);
+
+        if (!selectedExperience) {
+          setError("Experience record not found.");
+          return;
+        }
+
+        setFormData({
+          company: selectedExperience.company || "",
+          role: selectedExperience.role || "",
+          startDate: formatDateForInput(selectedExperience.startDate),
+          endDate: formatDateForInput(selectedExperience.endDate),
+          description: selectedExperience.description || "",
+        });
+      } catch (err) {
+        console.error("Failed to load experience:", err);
+
+        setError(err.response?.data?.message || "Failed to load experience.");
+      }
+    };
+
+    fetchExperience();
+  }, [id]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -38,76 +66,110 @@ const EditExperience = ({
       ...prev,
       [name]: value,
     }));
+
+    setError("");
   };
 
   // Convert DD/MM/YYYY to YYYY-MM-DD
   const convertDate = (date) => {
-    if (!date) return null;
+    if (!date.trim()) return null;
 
-    const [day, month, year] = date.split("/");
+    const match = date.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+
+    if (!match) {
+      throw new Error("Enter dates in DD/MM/YYYY format.");
+    }
+
+    const [, day, month, year] = match;
+
+    const parsedDate = new Date(
+      Date.UTC(Number(year), Number(month) - 1, Number(day)),
+    );
+
+    if (
+      parsedDate.getUTCFullYear() !== Number(year) ||
+      parsedDate.getUTCMonth() !== Number(month) - 1 ||
+      parsedDate.getUTCDate() !== Number(day)
+    ) {
+      throw new Error("Please enter a valid date.");
+    }
 
     return `${year}-${month}-${day}`;
   };
 
-  // Submit update
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      setLoading(true);
+    setLoading(true);
+    setError("");
 
+    try {
       const updatedData = {
-        company: formData.company,
-        role: formData.role,
+        company: formData.company.trim(),
+        role: formData.role.trim(),
         startDate: convertDate(formData.startDate),
         endDate: convertDate(formData.endDate),
         description: formData.description,
       };
 
-      const response = await updateExperience(experience._id, updatedData);
+      await updateExperience(id, updatedData);
 
-      console.log("Updated experience:", response);
+      navigate("/#experience");
+    } catch (err) {
+      console.error("Failed to update experience:", err);
 
-      // Update experience in UI
-      setExperiences((prev) =>
-        prev.map((item) =>
-          item._id === experience._id ? response.data.data : item,
-        ),
+      setError(
+        err.response?.data?.message ||
+          err.message ||
+          "Failed to update experience.",
       );
-
-      // Go back to experience list
-      setEditingExperience(null);
-    } catch (error) {
-      console.error("Failed to update experience:", error);
-
-      console.error("Server response:", error.response?.data);
     } finally {
       setLoading(false);
     }
   };
+
+  if (!formData) {
+    return (
+      <section className="edit-experience-section">
+        <div className="edit-experience-container">
+          <p role={error ? "alert" : "status"}>
+            {error || "Loading experience..."}
+          </p>
+
+          {error && (
+            <button
+              type="button"
+              className="cancel-edit-experience-btn"
+              onClick={() => navigate("/#experience")}
+            >
+              ← Back to portfolio
+            </button>
+          )}
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="edit-experience-section">
       <div className="edit-experience-container">
         <div className="edit-experience-header">
           <h2>Edit Experience</h2>
-
           <button
             type="button"
             className="cancel-edit-experience-btn"
-            onClick={() => setEditingExperience(null)}
+            onClick={() => navigate("/#experience")}
+            disabled={loading}
           >
             Cancel
           </button>
         </div>
 
         <form onSubmit={handleSubmit}>
-          {/* Company */}
-
           <div className="experience-form-group">
-            <label>Company</label>
-
+            <label htmlFor="edit-company">Company</label>
             <input
+              id="edit-company"
               type="text"
               name="company"
               value={formData.company}
@@ -116,12 +178,10 @@ const EditExperience = ({
             />
           </div>
 
-          {/* Role */}
-
           <div className="experience-form-group">
-            <label>Role</label>
-
+            <label htmlFor="edit-role">Role</label>
             <input
+              id="edit-role"
               type="text"
               name="role"
               value={formData.role}
@@ -130,12 +190,10 @@ const EditExperience = ({
             />
           </div>
 
-          {/* Start Date */}
-
           <div className="experience-form-group">
-            <label>Start Date</label>
-
+            <label htmlFor="edit-start-date">Start Date</label>
             <input
+              id="edit-start-date"
               type="text"
               name="startDate"
               value={formData.startDate}
@@ -145,43 +203,45 @@ const EditExperience = ({
             />
           </div>
 
-          {/* End Date */}
-
           <div className="experience-form-group">
-            <label>End Date</label>
-
+            <label htmlFor="edit-end-date">End Date</label>
             <input
+              id="edit-end-date"
               type="text"
               name="endDate"
               value={formData.endDate}
               onChange={handleChange}
-              placeholder="DD/MM/YYYY"
+              placeholder="DD/MM/YYYY (leave blank if ongoing)"
             />
           </div>
 
-          {/* Description */}
-
           <div className="experience-form-group">
-            <label>Description</label>
-
+            <label htmlFor="edit-description">Description</label>
             <textarea
+              id="edit-description"
               name="description"
               value={formData.description}
               onChange={handleChange}
-              placeholder="Add each responsibility on a new line..."
-              rows="6"
+              placeholder="Describe your responsibilities and work..."
+              rows={5}
             />
           </div>
 
-          {/* Save */}
+          {error && (
+            <p className="form-error" role="alert">
+              {error}
+            </p>
+          )}
 
-          <button
-            type="submit"
-            className="save-edit-experience-btn"
-            disabled={loading}
-          >
-            {loading ? "Updating..." : "Update Experience"}
-          </button>
+          <div className="experience-form-actions">
+            <button
+              type="submit"
+              className="save-edit-experience-btn"
+              disabled={loading}
+            >
+              {loading ? "Updating..." : "Save Changes"}
+            </button>
+          </div>
         </form>
       </div>
     </section>

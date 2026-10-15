@@ -1,0 +1,233 @@
+/* Edit Education Page */
+.edit-education-page {
+  width: 100%;
+  min-height: 100vh;
+  padding: 35px 24px 45px;
+  background: #ffffff;
+  color: #111111;
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+  box-sizing: border-box;
+}
+
+.edit-education-page,
+.edit-education-page * {
+  box-sizing: border-box;
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+}
+
+/* Header */
+.edit-education-header {
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto 22px;
+}
+
+.edit-education-header > button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  margin-bottom: 18px;
+  padding: 0 15px;
+  background: #ffffff;
+  color: #111111;
+  border: 1px solid #d8d8d8;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.edit-education-header > button:hover {
+  background: #f3f3f3;
+}
+
+.edit-education-header h2 {
+  margin: 0 0 6px;
+  color: #111111;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.edit-education-header > p {
+  margin: 0;
+  color: #666666;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Form */
+.edit-education-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 24px;
+  background: #ffffff;
+  border: 1px solid #dedede;
+  border-radius: 14px;
+}
+
+.edit-education-form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.edit-education-form label {
+  color: #222222;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.edit-education-form input,
+.edit-education-form textarea {
+  display: block;
+  width: 100%;
+  min-height: 43px;
+  padding: 10px 12px;
+  background: #ffffff;
+  color: #111111;
+  border: 1px solid #d8d8d8;
+  border-radius: 8px;
+  outline: none;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.edit-education-form input:focus,
+.edit-education-form textarea:focus {
+  border-color: #111111;
+}
+
+.edit-education-form textarea {
+  min-height: 90px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.edit-education-form input::placeholder,
+.edit-education-form textarea::placeholder {
+  color: #888888;
+}
+
+/* Years */
+.edit-education-form .form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* Actions */
+.edit-education-form .education-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  padding-top: 14px;
+  border-top: 1px solid #eeeeee;
+}
+
+.edit-education-form .education-form-actions button {
+  min-height: 42px;
+  padding: 0 20px;
+  border: 1px solid #111111;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.edit-education-form .education-form-actions button[type="submit"] {
+  background: #111111;
+  color: #ffffff;
+}
+
+.edit-education-form .education-form-actions button[type="submit"]:hover {
+  background: #333333;
+}
+
+.edit-education-form .education-form-actions button[type="button"] {
+  background: #ffffff;
+  color: #111111;
+}
+
+.edit-education-form .education-form-actions button[type="button"]:hover {
+  background: #f3f3f3;
+}
+
+.edit-education-form button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Error and Loading */
+.form-error {
+  margin: 0;
+  padding: 12px;
+  background: #fff5f5;
+  color: #b42318;
+  border: 1px solid #f1c7c7;
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.edit-education-status {
+  color: #666666;
+  font-size: 14px;
+}
+
+/* Keyboard focus */
+.edit-education-page button:focus-visible,
+.edit-education-page input:focus-visible,
+.edit-education-page textarea:focus-visible {
+  outline: 2px solid #111111;
+  outline-offset: 2px;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .edit-education-page {
+    padding: 24px 16px 35px;
+  }
+
+  .edit-education-header h2 {
+    font-size: 28px;
+  }
+
+  .edit-education-form {
+    gap: 15px;
+    padding: 18px;
+  }
+
+  .edit-education-form .form-row {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .edit-education-form .education-form-actions {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .edit-education-form .education-form-actions button {
+    width: 100%;
+  }
+}

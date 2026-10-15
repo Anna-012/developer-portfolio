@@ -2,6 +2,13 @@
   padding: 10px 10%;
   background: #ffffff;
   margin-top: 40px;
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
 }
 
 .skills-header {
@@ -24,7 +31,15 @@
   border-radius: 8px;
   background: #111;
   color: white;
-  font-size: 16px;
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+  font-size: 14px;
+  font-weight: 500;
   cursor: pointer;
   transition: 0.2s ease;
 }
@@ -89,45 +104,63 @@
 
 .delete-skill-btn {
   position: absolute;
-  top: 4px;
-  right: 4px;
-
-  width: 22px;
-  height: 22px;
-
-  border: none;
-  border-radius: 5px;
-  background: white;
-
+  top: 8px;
+  right: 8px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid #ddd;
+  border-radius: 9px;
+  background: #fff;
+  color: #111;
   cursor: pointer;
-  font-size: 11px;
-
   opacity: 0;
   visibility: hidden;
-  transition: 0.2s ease;
+  transition:
+    background 0.2s ease,
+    opacity 0.2s ease;
 }
 
-.skill-card:hover .delete-skill-btn {
+.skill-card:hover .delete-skill-btn,
+.delete-skill-btn:focus-visible {
   opacity: 1;
   visibility: visible;
 }
 
+.delete-skill-btn:hover {
+  background: #f5f5f5;
+}
 .skills-container {
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
 }
 
 .skill-category {
-  margin-bottom: 35px;
+  width: 100%;
 }
 
 .skill-category h3 {
-  font-size: 22px;
-  margin: 0 0 18px;
+  margin: 0 0 14px;
 }
 
 .skills-list {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 15px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 115px));
+  gap: 12px;
+  align-items: start;
+}
+
+@media (max-width: 600px) {
+  .delete-skill-btn {
+    opacity: 1;
+    visibility: visible;
+  }
+  .skills-list {
+    grid-template-columns: repeat(auto-fill, minmax(85px, 1fr));
+    gap: 10px;
+  }
 }

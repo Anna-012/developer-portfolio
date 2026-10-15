@@ -1,35 +1,30 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { getProjects, deleteProject } from "../../api/projectApi";
-
-import UploadProject from "./UploadProject";
-import EditProject from "./EditProject";
 import ProjectCard from "./ProjectCard";
-
+import ProjectSkeleton from "./ProjectSkeleton";
 import "./MyProjects.css";
 
 const MyProjects = () => {
+  const navigate = useNavigate();
   const [projects, setProjects] = useState([]);
-  const [isUploading, setIsUploading] = useState(false);
-  const [editingProject, setEditingProject] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  // Fetch projects
   useEffect(() => {
     const fetchProjects = async () => {
       try {
         const response = await getProjects();
-
-        console.log("Projects API response:", response);
-
-        setProjects(response.data.data);
+        setProjects(response.data.data || []);
       } catch (error) {
         console.error("Failed to fetch projects:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchProjects();
   }, []);
 
-  // Delete project
   const handleDelete = async (id) => {
     const confirmDelete = window.confirm(
       "Are you sure you want to delete this project?",
@@ -46,39 +41,18 @@ const MyProjects = () => {
     }
   };
 
-  // Show upload form
-  if (isUploading) {
-    return (
-      <UploadProject
-        setProjects={setProjects}
-        setIsUploading={setIsUploading}
-      />
-    );
-  }
-
-  // Show edit form
-  if (editingProject) {
-    return (
-      <EditProject
-        project={editingProject}
-        setProjects={setProjects}
-        setEditingProject={setEditingProject}
-      />
-    );
-  }
-
   return (
     <section className="projects-section" id="projects">
       <div className="projects-header">
         <div>
           <h2>My Projects</h2>
-
           <p>Some of the things I've built</p>
         </div>
 
         <button
+          type="button"
           className="add-project-btn"
-          onClick={() => setIsUploading(true)}
+          onClick={() => navigate("/add-project")}
         >
           <span>+</span>
           Upload Project
@@ -86,7 +60,12 @@ const MyProjects = () => {
       </div>
 
       <div className="projects-list">
-        {projects.length === 0 ? (
+        {loading ? (
+          <>
+            <ProjectSkeleton />
+            <ProjectSkeleton />
+          </>
+        ) : projects.length === 0 ? (
           <p className="no-projects">No projects added yet.</p>
         ) : (
           projects.map((project) => (

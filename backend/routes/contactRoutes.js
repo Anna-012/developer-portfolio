@@ -4,6 +4,7 @@ import {
   getContact,
   createContact,
   updateContact,
+  sendContactEmail,
 } from "../controllers/contactController.js";
 
 const router = express.Router();
@@ -16,5 +17,8 @@ router.post("/", createContact);
 
 // Update contact information
 router.put("/", updateContact);
+
+// Send email from portfolio contact form
+router.post("/send-email", sendContactEmail);
 
 export default router;

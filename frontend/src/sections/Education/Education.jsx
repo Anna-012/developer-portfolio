@@ -1,20 +1,17 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { getEducation, deleteEducation } from "../../api/educationApi";
-import AddEducation from "./AddEducation";
-import EditEducation from "./EditEducation";
 import "./Education.css";
 
 const Education = () => {
+  const navigate = useNavigate();
   const [education, setEducation] = useState([]);
-  const [isAdding, setIsAdding] = useState(false);
-  const [editingEducation, setEditingEducation] = useState(null);
 
   useEffect(() => {
     const fetchEducation = async () => {
       try {
-        const data = await getEducation();
-        console.log("Education API response:", data);
-        setEducation(data.data.data);
+        const response = await getEducation();
+        setEducation(response.data.data);
       } catch (error) {
         console.error("Failed to fetch education:", error);
       }
@@ -24,37 +21,30 @@ const Education = () => {
   }, []);
 
   const handleDelete = async (id) => {
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this education record?",
+    );
+
+    if (!confirmed) return;
+
     try {
       await deleteEducation(id);
-
       setEducation((prev) => prev.filter((item) => item._id !== id));
     } catch (error) {
       console.error("Failed to delete education:", error);
     }
   };
 
-  if (isAdding) {
-    return (
-      <AddEducation setEducation={setEducation} setIsAdding={setIsAdding} />
-    );
-  }
-
-  if (editingEducation) {
-    return (
-      <EditEducation
-        education={editingEducation}
-        setEducation={setEducation}
-        setEditingEducation={setEditingEducation}
-      />
-    );
-  }
-
   return (
     <section className="education-section" id="education">
       <div className="education-header">
         <h2>Education</h2>
 
-        <button className="add-education-btn" onClick={() => setIsAdding(true)}>
+        <button
+          type="button"
+          className="add-education-btn"
+          onClick={() => navigate("/add-education")}
+        >
           <span>+</span> Add Education
         </button>
       </div>
@@ -62,15 +52,28 @@ const Education = () => {
       <div className="education-list">
         {education.map((item) => (
           <div className="education-card" key={item._id}>
-            <div className="education-icon">🎓</div>
+            <div className="education-icon">
+              <svg
+                width="25"
+                height="25"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <path d="m2 9 10-5 10 5-10 5L2 9Z" />
+                <path d="M6 11v5c3.5 2.5 8.5 2.5 12 0v-5" />
+                <path d="M22 9v6" />
+              </svg>
+            </div>
 
             <div className="education-info">
               <h3>{item.degree}</h3>
-
               <p className="education-description">{item.description}</p>
-
               <h4>{item.institution}</h4>
-
               <p className="education-year">
                 {item.startYear} - {item.endYear}
               </p>
@@ -78,17 +81,51 @@ const Education = () => {
 
             <div className="education-actions">
               <button
+                type="button"
                 className="edit-education-btn"
-                onClick={() => setEditingEducation(item)}
+                aria-label={`Edit ${item.degree}`}
+                title="Edit education"
+                onClick={() => navigate(`/edit-education/${item._id}`)}
               >
-                ✏️
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M12 20h9" />
+                  <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L9 17l-4 1 1-4Z" />
+                </svg>
               </button>
 
               <button
+                type="button"
                 className="delete-education-btn"
+                aria-label={`Delete ${item.degree}`}
+                title="Delete education"
                 onClick={() => handleDelete(item._id)}
               >
-                🗑️
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M3 6h18" />
+                  <path d="M8 6V4h8v2" />
+                  <path d="m19 6-1 14H6L5 6" />
+                  <path d="M10 11v5M14 11v5" />
+                </svg>
               </button>
             </div>
           </div>

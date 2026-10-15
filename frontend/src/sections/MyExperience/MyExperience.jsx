@@ -1,25 +1,17 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { getExperiences, deleteExperience } from "../../api/experienceApi";
-
-import AddExperience from "./AddExperience";
-import EditExperience from "./EditExperience";
 import ExperienceCard from "./ExperienceCard";
-
 import "./MyExperience.css";
 
 const MyExperience = () => {
+  const navigate = useNavigate();
   const [experiences, setExperiences] = useState([]);
-  const [isAdding, setIsAdding] = useState(false);
-  const [editingExperience, setEditingExperience] = useState(null);
 
-  // Fetch experiences
   useEffect(() => {
     const fetchExperiences = async () => {
       try {
         const response = await getExperiences();
-
-        console.log("Experience API response:", response);
-
         setExperiences(response.data.data);
       } catch (error) {
         console.error("Failed to fetch experiences:", error);
@@ -29,7 +21,6 @@ const MyExperience = () => {
     fetchExperiences();
   }, []);
 
-  // Delete experience
   const handleDelete = async (id) => {
     const confirmDelete = window.confirm(
       "Are you sure you want to delete this experience?",
@@ -48,39 +39,18 @@ const MyExperience = () => {
     }
   };
 
-  // Show Add Experience
-  if (isAdding) {
-    return (
-      <AddExperience
-        setExperiences={setExperiences}
-        setIsAdding={setIsAdding}
-      />
-    );
-  }
-
-  // Show Edit Experience
-  if (editingExperience) {
-    return (
-      <EditExperience
-        experience={editingExperience}
-        setExperiences={setExperiences}
-        setEditingExperience={setEditingExperience}
-      />
-    );
-  }
-
   return (
     <section className="experience-section" id="experience">
       <div className="experience-header">
         <div>
           <h2>My Experience</h2>
-
           <p>My professional experience and career journey</p>
         </div>
 
         <button
+          type="button"
           className="add-experience-btn"
-          onClick={() => setIsAdding(true)}
+          onClick={() => navigate("/add-experience")}
         >
           <span>+</span>
           Add Experience
@@ -95,7 +65,7 @@ const MyExperience = () => {
             <ExperienceCard
               key={experience._id}
               experience={experience}
-              onEdit={() => setEditingExperience(experience)}
+              onEdit={() => navigate(`/edit-experience/${experience._id}`)}
               onDelete={() => handleDelete(experience._id)}
             />
           ))

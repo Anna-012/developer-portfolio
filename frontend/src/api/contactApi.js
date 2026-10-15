@@ -19,3 +19,10 @@ export const updateContact = async (contactData) => {
   const response = await axios.put(API_URL, contactData);
   return response;
 };
+
+// Send message to portfolio owner's Gmail
+export const sendContactEmail = async (emailData) => {
+  const response = await axios.post(`${API_URL}/send-email`, emailData);
+
+  return response;
+};

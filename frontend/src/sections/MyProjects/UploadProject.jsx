@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { createProject } from "../../api/projectApi";
-
 import "./UploadProject.css";
 
-const UploadProject = ({ setProjects, setIsUploading }) => {
+const UploadProject = () => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -15,8 +17,8 @@ const UploadProject = ({ setProjects, setIsUploading }) => {
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  // Text input
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -26,30 +28,27 @@ const UploadProject = ({ setProjects, setIsUploading }) => {
     }));
   };
 
-  // Image
   const handleImageChange = (e) => {
     const file = e.target.files[0];
 
     if (!file) return;
 
     setImage(file);
-
     setPreview(URL.createObjectURL(file));
   };
 
-  // Submit
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       setLoading(true);
+      setError("");
 
       const data = new FormData();
 
       data.append("title", formData.title);
       data.append("description", formData.description);
 
-      // Convert comma separated technologies into array
       const technologiesArray = formData.technologies
         .split(",")
         .map((item) => item.trim())
@@ -66,16 +65,15 @@ const UploadProject = ({ setProjects, setIsUploading }) => {
         data.append("image", image);
       }
 
-      const response = await createProject(data);
+      await createProject(data);
 
-      console.log("Project created:", response);
-
-      // Add newly created project to UI
-      setProjects((prev) => [...prev, response.data.data]);
-
-      setIsUploading(false);
+      navigate("/#projects");
     } catch (error) {
       console.error("Failed to create project:", error);
+      setError(
+        error.response?.data?.message ||
+          "Failed to add project. Please try again.",
+      );
     } finally {
       setLoading(false);
     }
@@ -88,20 +86,20 @@ const UploadProject = ({ setProjects, setIsUploading }) => {
           <h2>Upload Project</h2>
 
           <button
+            type="button"
             className="cancel-project-btn"
-            onClick={() => setIsUploading(false)}
+            onClick={() => navigate("/#projects")}
+            disabled={loading}
           >
             Cancel
           </button>
         </div>
 
         <form onSubmit={handleSubmit}>
-          {/* Title */}
-
           <div className="form-group">
-            <label>Project Title</label>
-
+            <label htmlFor="title">Project Title</label>
             <input
+              id="title"
               type="text"
               name="title"
               value={formData.title}
@@ -111,12 +109,10 @@ const UploadProject = ({ setProjects, setIsUploading }) => {
             />
           </div>
 
-          {/* Description */}
-
           <div className="form-group">
-            <label>Description</label>
-
+            <label htmlFor="description">Description</label>
             <textarea
+              id="description"
               name="description"
               value={formData.description}
               onChange={handleChange}
@@ -126,12 +122,14 @@ const UploadProject = ({ setProjects, setIsUploading }) => {
             />
           </div>
 
-          {/* Image */}
-
           <div className="form-group">
-            <label>Project Thumbnail</label>
-
-            <input type="file" accept="image/*" onChange={handleImageChange} />
+            <label htmlFor="image">Project Thumbnail</label>
+            <input
+              id="image"
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+            />
 
             {preview && (
               <img
@@ -142,28 +140,23 @@ const UploadProject = ({ setProjects, setIsUploading }) => {
             )}
           </div>
 
-          {/* Technologies */}
-
           <div className="form-group">
-            <label>Technologies</label>
-
+            <label htmlFor="technologies">Technologies</label>
             <input
+              id="technologies"
               type="text"
               name="technologies"
               value={formData.technologies}
               onChange={handleChange}
               placeholder="React, Node.js, Express, MongoDB"
             />
-
             <small>Separate technologies with commas.</small>
           </div>
 
-          {/* GitHub */}
-
           <div className="form-group">
-            <label>GitHub Link</label>
-
+            <label htmlFor="githubLink">GitHub Link</label>
             <input
+              id="githubLink"
               type="url"
               name="githubLink"
               value={formData.githubLink}
@@ -172,12 +165,10 @@ const UploadProject = ({ setProjects, setIsUploading }) => {
             />
           </div>
 
-          {/* Live */}
-
           <div className="form-group">
-            <label>Live Demo Link</label>
-
+            <label htmlFor="liveLink">Live Demo Link</label>
             <input
+              id="liveLink"
               type="url"
               name="liveLink"
               value={formData.liveLink}
@@ -185,6 +176,12 @@ const UploadProject = ({ setProjects, setIsUploading }) => {
               placeholder="https://..."
             />
           </div>
+
+          {error && (
+            <p className="form-error" role="alert">
+              {error}
+            </p>
+          )}
 
           <button type="submit" className="save-project-btn" disabled={loading}>
             {loading ? "Uploading..." : "Add Project"}

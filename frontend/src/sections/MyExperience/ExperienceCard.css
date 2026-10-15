@@ -1,17 +1,12 @@
 .experience-card {
   position: relative;
-
   display: flex;
-  align-items: center;
-
-  padding: 30px;
-  margin-bottom: 20px;
+  align-items: start;
+  padding: 28px 32px;
 
   border: 1px solid #ddd;
   border-radius: 14px;
-
   background: #fff;
-
   transition: 0.25s ease;
 }
 
@@ -22,22 +17,21 @@
 /* Experience icon */
 
 .experience-icon {
-  width: 70px;
-  height: 70px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  margin-right: 25px;
-
+  width: 60px;
+  height: 60px;
+  min-width: 60px;
   border-radius: 50%;
+  background: transparent;
+  color: #171717;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  margin-top: 8px;
+}
 
-  background: #f2f2f2;
-
-  font-size: 30px;
-
-  flex-shrink: 0;
+.experience-icon svg {
+  width: 28px;
+  height: 28px;
 }
 
 /* Experience information */
@@ -127,15 +121,6 @@
   .experience-card {
     align-items: flex-start;
     padding: 25px;
-  }
-
-  .experience-icon {
-    width: 55px;
-    height: 55px;
-
-    margin-right: 15px;
-
-    font-size: 24px;
   }
 
   .experience-info h3 {

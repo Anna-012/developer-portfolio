@@ -1,4 +1,11 @@
 .contact-info {
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    sans-serif !important;
   display: flex;
   flex-direction: column;
   gap: 24px;

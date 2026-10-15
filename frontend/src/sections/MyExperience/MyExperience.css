@@ -1,3 +1,14 @@
+.experience-section,
+.experience-section * {
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    sans-serif !important;
+}
+
 .experience-section {
   padding: 10px 10%;
   background: #ffffff;
@@ -29,7 +40,15 @@
   border-radius: 8px;
   background: #111;
   color: white;
-  font-size: 16px;
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+  font-size: 14px;
+  font-weight: 500;
   cursor: pointer;
   transition: 0.2s ease;
 }
@@ -48,7 +67,10 @@
 .experience-list {
   max-height: 500px;
   overflow-y: auto;
-  padding-right: 10px;
+  padding: 0 10px 4px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
 /* Empty state */

@@ -1,0 +1,167 @@
+.edit-contact-section {
+  min-height: 100vh;
+  padding: 50px 10%;
+  background: #ffffff;
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+  box-sizing: border-box;
+}
+
+.edit-contact-section *,
+.edit-contact-section *::before,
+.edit-contact-section *::after {
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.edit-contact-container {
+  width: 100%;
+  max-width: 850px;
+  margin: 0 auto;
+  padding: 36px;
+  border: 1px solid #dedede;
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+}
+
+.edit-contact-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+.edit-contact-header h2 {
+  margin: 0;
+  color: #111111;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.edit-contact-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.edit-contact-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.edit-contact-form-group label {
+  color: #222222;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.edit-contact-form-group input {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 14px;
+  border: 1px solid #d8d8d8;
+  border-radius: 8px;
+  outline: none;
+  background: #ffffff;
+  color: #111111;
+  font-size: 15px;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.edit-contact-form-group input::placeholder {
+  color: #999999;
+}
+
+.edit-contact-form-group input:focus {
+  border-color: #111111;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.06);
+}
+
+.save-contact-btn,
+.cancel-contact-btn {
+  min-height: 46px;
+  padding: 11px 20px;
+  border: 1px solid #111111;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.save-contact-btn {
+  align-self: flex-start;
+  background: #111111;
+  color: #ffffff;
+}
+
+.save-contact-btn:hover {
+  background: #333333;
+}
+
+.cancel-contact-btn {
+  background: #ffffff;
+  color: #111111;
+}
+
+.cancel-contact-btn:hover {
+  background: #f4f4f4;
+}
+
+.save-contact-btn:disabled,
+.cancel-contact-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.edit-contact-container .form-error {
+  margin: 0;
+  color: #c62828;
+  font-size: 14px;
+}
+
+@media (max-width: 600px) {
+  .edit-contact-section {
+    padding: 28px 5%;
+  }
+
+  .edit-contact-container {
+    padding: 22px 18px;
+  }
+
+  .edit-contact-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 26px;
+  }
+
+  .edit-contact-header h2 {
+    font-size: 27px;
+  }
+
+  .edit-contact-container form {
+    gap: 18px;
+  }
+
+  .save-contact-btn,
+  .cancel-contact-btn {
+    width: 100%;
+  }
+
+  .save-contact-btn {
+    align-self: stretch;
+  }
+}

@@ -1,24 +1,62 @@
-import { useState } from "react";
-import { updateProject } from "../../api/projectApi";
-
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { getProjects, updateProject } from "../../api/projectApi";
 import "./EditProject.css";
 
-const EditProject = ({ project, setProjects, setEditingProject }) => {
+const EditProject = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+
+  const [project, setProject] = useState(null);
   const [formData, setFormData] = useState({
-    title: project.title || "",
-    description: project.description || "",
-    technologies: project.technologies?.join(", ") || "",
-    githubLink: project.githubLink || "",
-    liveLink: project.liveLink || "",
+    title: "",
+    description: "",
+    technologies: "",
+    githubLink: "",
+    liveLink: "",
   });
 
   const [image, setImage] = useState(null);
-
-  const [preview, setPreview] = useState(project.image?.url || null);
-
+  const [preview, setPreview] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [fetching, setFetching] = useState(true);
+  const [error, setError] = useState("");
 
-  // Handle input
+  useEffect(() => {
+    const fetchProject = async () => {
+      try {
+        setFetching(true);
+        setError("");
+
+        const response = await getProjects();
+        const projects = response.data.data;
+        const foundProject = projects.find((item) => item._id === id);
+
+        if (!foundProject) {
+          setError("Project not found.");
+          return;
+        }
+
+        setProject(foundProject);
+        setFormData({
+          title: foundProject.title || "",
+          description: foundProject.description || "",
+          technologies: foundProject.technologies?.join(", ") || "",
+          githubLink: foundProject.githubLink || "",
+          liveLink: foundProject.liveLink || "",
+        });
+        setPreview(foundProject.image?.url || null);
+      } catch (err) {
+        console.error("Failed to fetch project:", err);
+        setError("Failed to load project. Please try again.");
+      } finally {
+        setFetching(false);
+      }
+    };
+
+    fetchProject();
+  }, [id]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -28,26 +66,35 @@ const EditProject = ({ project, setProjects, setEditingProject }) => {
     }));
   };
 
-  // Handle image
   const handleImageChange = (e) => {
-    const file = e.target.files[0];
-
+    const file = e.target.files?.[0];
     if (!file) return;
 
-    setImage(file);
+    if (preview?.startsWith("blob:")) {
+      URL.revokeObjectURL(preview);
+    }
 
+    setImage(file);
     setPreview(URL.createObjectURL(file));
   };
 
-  // Submit
+  useEffect(() => {
+    return () => {
+      if (preview?.startsWith("blob:")) {
+        URL.revokeObjectURL(preview);
+      }
+    };
+  }, [preview]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!project) return;
 
     try {
       setLoading(true);
+      setError("");
 
       const data = new FormData();
-
       data.append("title", formData.title);
       data.append("description", formData.description);
 
@@ -63,28 +110,49 @@ const EditProject = ({ project, setProjects, setEditingProject }) => {
       data.append("githubLink", formData.githubLink);
       data.append("liveLink", formData.liveLink);
 
-      // Only send new image if user selected one
       if (image) {
         data.append("image", image);
       }
 
-      const response = await updateProject(project._id, data);
-
-      console.log("Updated project:", response);
-
-      const updatedProject = response.data.data;
-
-      setProjects((prev) =>
-        prev.map((item) => (item._id === project._id ? updatedProject : item)),
+      await updateProject(project._id, data);
+      navigate("/#projects");
+    } catch (err) {
+      console.error("Failed to update project:", err);
+      setError(
+        err.response?.data?.message ||
+          "Failed to update project. Please try again.",
       );
-
-      setEditingProject(null);
-    } catch (error) {
-      console.error("Failed to update project:", error);
     } finally {
       setLoading(false);
     }
   };
+
+  if (fetching) {
+    return (
+      <section className="edit-project-section">
+        <div className="edit-project-container">
+          <p>Loading project...</p>
+        </div>
+      </section>
+    );
+  }
+
+  if (!project) {
+    return (
+      <section className="edit-project-section">
+        <div className="edit-project-container">
+          <p>{error || "Project not found."}</p>
+          <button
+            type="button"
+            className="cancel-edit-btn"
+            onClick={() => navigate("/#projects")}
+          >
+            Back to Projects
+          </button>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="edit-project-section">
@@ -93,8 +161,10 @@ const EditProject = ({ project, setProjects, setEditingProject }) => {
           <h2>Edit Project</h2>
 
           <button
+            type="button"
             className="cancel-edit-btn"
-            onClick={() => setEditingProject(null)}
+            onClick={() => navigate("/#projects")}
+            disabled={loading}
           >
             Cancel
           </button>
@@ -102,9 +172,9 @@ const EditProject = ({ project, setProjects, setEditingProject }) => {
 
         <form onSubmit={handleSubmit}>
           <div className="edit-form-group">
-            <label>Project Title</label>
-
+            <label htmlFor="edit-title">Project Title</label>
             <input
+              id="edit-title"
               type="text"
               name="title"
               value={formData.title}
@@ -114,9 +184,9 @@ const EditProject = ({ project, setProjects, setEditingProject }) => {
           </div>
 
           <div className="edit-form-group">
-            <label>Description</label>
-
+            <label htmlFor="edit-description">Description</label>
             <textarea
+              id="edit-description"
               name="description"
               value={formData.description}
               onChange={handleChange}
@@ -126,7 +196,7 @@ const EditProject = ({ project, setProjects, setEditingProject }) => {
           </div>
 
           <div className="edit-form-group">
-            <label>Project Thumbnail</label>
+            <label htmlFor="edit-image">Project Thumbnail</label>
 
             {preview && (
               <img
@@ -136,13 +206,18 @@ const EditProject = ({ project, setProjects, setEditingProject }) => {
               />
             )}
 
-            <input type="file" accept="image/*" onChange={handleImageChange} />
+            <input
+              id="edit-image"
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+            />
           </div>
 
           <div className="edit-form-group">
-            <label>Technologies</label>
-
+            <label htmlFor="edit-technologies">Technologies</label>
             <input
+              id="edit-technologies"
               type="text"
               name="technologies"
               value={formData.technologies}
@@ -152,9 +227,9 @@ const EditProject = ({ project, setProjects, setEditingProject }) => {
           </div>
 
           <div className="edit-form-group">
-            <label>GitHub Link</label>
-
+            <label htmlFor="edit-github">GitHub Link</label>
             <input
+              id="edit-github"
               type="url"
               name="githubLink"
               value={formData.githubLink}
@@ -163,15 +238,21 @@ const EditProject = ({ project, setProjects, setEditingProject }) => {
           </div>
 
           <div className="edit-form-group">
-            <label>Live Demo Link</label>
-
+            <label htmlFor="edit-live">Live Demo Link</label>
             <input
+              id="edit-live"
               type="url"
               name="liveLink"
               value={formData.liveLink}
               onChange={handleChange}
             />
           </div>
+
+          {error && (
+            <p className="form-error" role="alert">
+              {error}
+            </p>
+          )}
 
           <button
             type="submit"

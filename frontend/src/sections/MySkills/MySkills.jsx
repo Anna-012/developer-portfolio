@@ -1,19 +1,18 @@
 import { useEffect, useState } from "react";
 import { getSkills, deleteSkill } from "../../api/skillApi";
-import AddSkills from "./AddSkills";
+
 import SkillsIcon from "./SkillsIcon";
+import { useNavigate } from "react-router-dom";
 import "./MySkills.css";
 
 const MySkills = () => {
+  const navigate = useNavigate();
   const [skills, setSkills] = useState([]);
-  const [isAdding, setIsAdding] = useState(false);
 
   useEffect(() => {
     const fetchSkills = async () => {
       try {
         const data = await getSkills();
-
-        console.log("Skills API response:", data);
 
         setSkills(data.data.data);
       } catch (error) {
@@ -39,16 +38,15 @@ const MySkills = () => {
     ...new Set(skills.map((skill) => skill.category).filter(Boolean)),
   ];
 
-  if (isAdding) {
-    return <AddSkills setSkills={setSkills} setIsAdding={setIsAdding} />;
-  }
-
   return (
     <section className="skills-section" id="skills">
       <div className="skills-header">
         <h2>My Skills</h2>
 
-        <button className="add-skill-btn" onClick={() => setIsAdding(true)}>
+        <button
+          className="add-skill-btn"
+          onClick={() => navigate("/add-skills")}
+        >
           <span>+</span> Add Skill
         </button>
       </div>
@@ -70,10 +68,28 @@ const MySkills = () => {
                     <p>{skill.name}</p>
 
                     <button
+                      type="button"
                       className="delete-skill-btn"
                       onClick={() => handleDelete(skill._id)}
+                      title="Delete skill"
+                      aria-label="Delete skill"
                     >
-                      🗑️
+                      <svg
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.8"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="M3 6h18" />
+                        <path d="M8 6V4h8v2" />
+                        <path d="m19 6-1 14H6L5 6" />
+                        <path d="M10 11v5M14 11v5" />
+                      </svg>
                     </button>
                   </div>
                 ))}

@@ -20,7 +20,7 @@ const Footer = () => {
         {/* Social Links */}
         <div className="footer-socials">
           <a
-            href="https://www.linkedin.com/in/yourusername"
+            href="https://www.linkedin.com/in/afreen-sabbagh-546813375/"
             target="_blank"
             rel="noreferrer"
             aria-label="LinkedIn"
@@ -29,7 +29,7 @@ const Footer = () => {
           </a>
 
           <a
-            href="https://github.com/yourusername"
+            href="https://github.com/Anna-012"
             target="_blank"
             rel="noreferrer"
             aria-label="GitHub"
@@ -37,7 +37,7 @@ const Footer = () => {
             <FaGithub />
           </a>
 
-          <a href="mailto:your@email.com" aria-label="Email">
+          <a href="mailto:afreensabbagh01@gmail.com" aria-label="Email">
             <FaEnvelope />
           </a>
         </div>

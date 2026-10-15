@@ -1,160 +1,282 @@
 .education-section {
-  padding: 10px 10%;
+  width: 100%;
+  padding: 40px 10%;
   background: #ffffff;
+  color: #111111;
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+  box-sizing: border-box;
+}
+
+.education-section * {
+  box-sizing: border-box;
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
 }
 
 .education-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 35px;
+  justify-content: space-between;
+  gap: 20px;
+  width: 100%;
+  margin-bottom: 30px;
 }
 
 .education-header h2 {
-  font-size: 42px;
   margin: 0;
+  font-size: 40px;
+  line-height: 1.2;
 }
 
-/* Add button */
-
+/* Add Education Button */
 .add-education-btn {
-  padding: 12px 20px;
-  border: 1px solid #222;
-  border-radius: 8px;
-  background: #111;
-  color: white;
-  font-size: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 0 16px;
+  border: 1px solid #111111;
+  border-radius: 9px;
+  background: #111111;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
   cursor: pointer;
-  transition: 0.2s ease;
+  transition: background 0.2s ease;
 }
 
 .add-education-btn span {
   font-size: 20px;
-  margin-right: 6px;
+  line-height: 1;
 }
 
 .add-education-btn:hover {
-  background: #333;
+  background: #333333;
 }
-
-/* Education list */
 
 .education-list {
-  max-height: 500px;
-  overflow-y: auto;
-  padding-right: 10px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 340px));
+  gap: 16px;
+  width: 100%;
+  margin: 0;
+  align-items: stretch;
 }
 
-/* Education card */
-
+/* Education Card */
 .education-card {
   position: relative;
-
   display: flex;
-  align-items: center;
-
-  padding: 30px;
-
-  margin-bottom: 20px;
-
-  border: 1px solid #ddd;
+  align-items: flex-start;
+  gap: 16px;
+  width: 100%;
+  padding: 22px;
+  padding-right: 68px;
+  border: 1px solid #dedede;
   border-radius: 14px;
-
-  background: #fff;
-
-  transition: 0.25s ease;
+  background: #ffffff;
+  transition:
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
 }
 
-.education-card:hover {
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+.education-card:hover .education-actions,
+.education-card:focus-within {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
 }
 
-/* Graduation icon */
-
+/* Graduation Icon */
 .education-icon {
-  width: 70px;
-  height: 70px;
-
   display: flex;
+  flex: 0 0 48px;
   align-items: center;
   justify-content: center;
-
-  margin-right: 25px;
-
-  border-radius: 50%;
-  background: #f2f2f2;
-
-  font-size: 32px;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: #f3f3f3;
+  color: #333333;
 }
 
-/* Education information */
-
+/* Education Information */
 .education-info {
   flex: 1;
+  min-width: 0;
 }
 
 .education-info h3 {
-  margin: 0 0 8px;
-  font-size: 28px;
+  margin: 0 0 7px;
+  color: #111111;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
 }
 
 .education-description {
   margin: 0 0 12px;
-  color: #666;
-  font-size: 16px;
+  color: #666666;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
 }
 
 .education-info h4 {
-  margin: 0 0 8px;
-  font-size: 18px;
+  margin: 0 0 6px;
+  color: #333333;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
 }
 
 .education-year {
   margin: 0;
-  color: #777;
+  color: #777777;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.5;
 }
-
-/* Edit / Delete */
 
 .education-actions {
   position: absolute;
-
-  top: 20px;
-  right: 20px;
+  top: 16px;
+  right: 16px;
 
   display: flex;
+  align-items: center;
   gap: 8px;
 
   opacity: 0;
   visibility: hidden;
+  pointer-events: none;
 
-  transition: 0.2s ease;
-}
+  transform: translateY(-4px);
 
-.education-card:hover .education-actions {
-  opacity: 1;
-  visibility: visible;
+  transition:
+    opacity 0.2s ease,
+    visibility 0.2s ease,
+    transform 0.2s ease;
 }
 
 .edit-education-btn,
 .delete-education-btn {
-  width: 40px;
-  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  width: 36px;
+  height: 36px;
+  padding: 0;
 
-  background: white;
+  border: 1px solid #dedede;
+  border-radius: 9px;
+
+  background: #ffffff;
+  color: #111111;
 
   cursor: pointer;
-
-  font-size: 17px;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
 }
 
 .edit-education-btn:hover {
   background: #f2f2f2;
+  border-color: #aaaaaa;
+}
+
+.delete-education-btn {
+  color: #b42318;
 }
 
 .delete-education-btn:hover {
-  background: #ffe5e5;
+  background: #fff1f0;
+  border-color: #e5a09b;
+}
+/* Keyboard Accessibility */
+.education-section button:focus-visible {
+  outline: 2px solid #111111;
+  outline-offset: 3px;
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+  .education-section {
+    padding: 35px 6%;
+  }
+
+  .education-card {
+    padding: 20px;
+    padding-right: 66px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .education-section {
+    padding: 28px 16px;
+  }
+
+  .add-education-btn {
+    min-height: 38px;
+    padding: 0 11px;
+    font-size: 12px;
+  }
+
+  .education-list {
+    gap: 12px;
+  }
+
+  .education-card {
+    gap: 12px;
+    padding: 16px;
+    padding-top: 62px;
+    border-radius: 12px;
+  }
+
+  .education-info h3 {
+    font-size: 18px;
+  }
+
+  .education-description {
+    font-size: 13px;
+  }
+
+  .education-info h4 {
+    font-size: 14px;
+  }
+
+  .education-actions {
+    top: 14px;
+    right: 14px;
+  }
+}
+
+@media (max-width: 380px) {
+  .education-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .add-education-btn {
+    align-self: flex-start;
+  }
 }

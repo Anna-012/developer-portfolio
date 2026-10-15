@@ -1,13 +1,19 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { createSkill } from "../../api/skillApi";
 import "./AddSkills.css";
 
-const AddSkills = ({ setSkills, setIsAdding }) => {
+const AddSkills = () => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     name: "",
-    icon: "",
+
     category: "",
   });
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -20,15 +26,20 @@ const AddSkills = ({ setSkills, setIsAdding }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setError("");
 
     try {
-      const data = await createSkill(formData);
-
-      setSkills((prev) => [...prev, data.data.data]);
-
-      setIsAdding(false);
+      await createSkill(formData);
+      navigate("/#skills");
     } catch (error) {
       console.error("Failed to add skill:", error);
+      setError(
+        error.response?.data?.message ||
+          "Failed to add skill. Please try again.",
+      );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -43,14 +54,7 @@ const AddSkills = ({ setSkills, setIsAdding }) => {
           placeholder="Skill name"
           value={formData.name}
           onChange={handleChange}
-        />
-
-        <input
-          type="text"
-          name="icon"
-          placeholder="Icon"
-          value={formData.icon}
-          onChange={handleChange}
+          required
         />
 
         <input
@@ -59,11 +63,20 @@ const AddSkills = ({ setSkills, setIsAdding }) => {
           placeholder="Category"
           value={formData.category}
           onChange={handleChange}
+          required
         />
 
-        <button type="submit">Add Skill</button>
+        {error && <p className="form-error">{error}</p>}
 
-        <button type="button" onClick={() => setIsAdding(false)}>
+        <button type="submit" disabled={loading}>
+          {loading ? "Adding..." : "Add Skill"}
+        </button>
+
+        <button
+          type="button"
+          onClick={() => navigate("/#skills")}
+          disabled={loading}
+        >
           Cancel
         </button>
       </form>

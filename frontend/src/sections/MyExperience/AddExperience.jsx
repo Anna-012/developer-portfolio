@@ -1,8 +1,11 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { createExperience } from "../../api/experienceApi";
 import "./AddExperience.css";
 
-const AddExperience = ({ setExperiences, setIsAdding }) => {
+const AddExperience = () => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     company: "",
     role: "",
@@ -12,6 +15,7 @@ const AddExperience = ({ setExperiences, setIsAdding }) => {
   });
 
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -20,6 +24,8 @@ const AddExperience = ({ setExperiences, setIsAdding }) => {
       ...prev,
       [name]: value,
     }));
+
+    setError("");
   };
 
   // Convert DD/MM/YYYY to YYYY-MM-DD
@@ -27,20 +33,15 @@ const AddExperience = ({ setExperiences, setIsAdding }) => {
     if (!date) return null;
 
     const [day, month, year] = date.split("/");
-
     return `${year}-${month}-${day}`;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    console.log("Submit button clicked");
-    console.log("Form data:", formData);
+    setLoading(true);
+    setError("");
 
     try {
-      setLoading(true);
-
-      // Convert dates before sending to backend
       const data = {
         company: formData.company,
         role: formData.role,
@@ -49,18 +50,12 @@ const AddExperience = ({ setExperiences, setIsAdding }) => {
         description: formData.description,
       };
 
-      console.log("Data sent to API:", data);
+      await createExperience(data);
 
-      const response = await createExperience(data);
-
-      console.log("API response:", response);
-
-      setExperiences((prev) => [...prev, response.data.data]);
-
-      setIsAdding(false);
-    } catch (error) {
-      console.error("Failed to add experience:", error);
-      console.error("Server response:", error.response?.data);
+      navigate("/#experience");
+    } catch (err) {
+      console.error("Failed to add experience:", err);
+      setError(err.response?.data?.message || "Failed to add experience.");
     } finally {
       setLoading(false);
     }
@@ -75,7 +70,8 @@ const AddExperience = ({ setExperiences, setIsAdding }) => {
           <button
             type="button"
             className="cancel-experience-btn"
-            onClick={() => setIsAdding(false)}
+            onClick={() => navigate("/#experience")}
+            disabled={loading}
           >
             Cancel
           </button>
@@ -83,9 +79,9 @@ const AddExperience = ({ setExperiences, setIsAdding }) => {
 
         <form onSubmit={handleSubmit}>
           <div className="experience-form-group">
-            <label>Company</label>
-
+            <label htmlFor="company">Company</label>
             <input
+              id="company"
               type="text"
               name="company"
               value={formData.company}
@@ -96,22 +92,22 @@ const AddExperience = ({ setExperiences, setIsAdding }) => {
           </div>
 
           <div className="experience-form-group">
-            <label>Role</label>
-
+            <label htmlFor="role">Role</label>
             <input
+              id="role"
               type="text"
               name="role"
               value={formData.role}
               onChange={handleChange}
-              placeholder="e.g. Claims Associate"
+              placeholder="e.g. Full Stack Developer"
               required
             />
           </div>
 
           <div className="experience-form-group">
-            <label>Start Date</label>
-
+            <label htmlFor="startDate">Start Date</label>
             <input
+              id="startDate"
               type="text"
               name="startDate"
               value={formData.startDate}
@@ -122,28 +118,34 @@ const AddExperience = ({ setExperiences, setIsAdding }) => {
           </div>
 
           <div className="experience-form-group">
-            <label>End Date</label>
-
+            <label htmlFor="endDate">End Date</label>
             <input
+              id="endDate"
               type="text"
               name="endDate"
               value={formData.endDate}
               onChange={handleChange}
-              placeholder="DD/MM/YYYY"
+              placeholder="DD/MM/YYYY (leave blank if ongoing)"
             />
           </div>
 
           <div className="experience-form-group">
-            <label>Description</label>
-
+            <label htmlFor="description">Description</label>
             <textarea
+              id="description"
               name="description"
               value={formData.description}
               onChange={handleChange}
               placeholder="Describe your responsibilities and work..."
-              rows="5"
+              rows={5}
             />
           </div>
+
+          {error && (
+            <p className="form-error" role="alert">
+              {error}
+            </p>
+          )}
 
           <button
             type="submit"
