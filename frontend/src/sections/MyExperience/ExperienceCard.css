@@ -207,25 +207,23 @@
   }
 }
 
+.experience-info h3 {
+  font-size: 22px;
+}
 
-  .experience-info h3 {
-    font-size: 22px;
-  }
+.experience-info h4 {
+  font-size: 16px;
+}
 
-  .experience-info h4 {
-    font-size: 16px;
-  }
+.experience-description {
+  font-size: 14px;
+}
 
-  .experience-description {
-    font-size: 14px;
-  }
+.experience-actions {
+  position: static;
 
-  .experience-actions {
-    position: static;
+  margin-left: 10px;
 
-    margin-left: 10px;
-
-    opacity: 1;
-    visibility: visible;
-  }
+  opacity: 1;
+  visibility: visible;
 }
