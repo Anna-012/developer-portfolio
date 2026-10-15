@@ -1,5 +1,5 @@
-.upload-project-container *{
-font-family:
+.upload-project-container * {
+  font-family:
     "Inter",
     system-ui,
     -apple-system,
@@ -12,16 +12,12 @@ font-family:
   background: #fff;
 }
 
- 
- {
+.upload-project-container {
   max-width: 850px;
   margin: auto;
-
   padding: 35px;
-
   border: 1px solid #ddd;
   border-radius: 14px;
-
   background: #fff;
 }
 

@@ -166,7 +166,6 @@
   background: #333333;
 }
 
-/* Cancel Button */
 .education-form .education-form-actions button[type="button"] {
   background: #ffffff;
   color: #111111;
@@ -181,7 +180,6 @@
   cursor: not-allowed;
 }
 
-/* Error Message */
 .education-form .form-error {
   margin: 0;
   padding: 12px;
@@ -193,7 +191,6 @@
   line-height: 1.5;
 }
 
-/* Keyboard Accessibility */
 .education-form-section button:focus-visible,
 .education-form-section input:focus-visible,
 .education-form-section textarea:focus-visible {
@@ -201,7 +198,6 @@
   outline-offset: 2px;
 }
 
-/* Mobile Responsive */
 @media (max-width: 600px) {
   .education-form-section {
     padding: 24px 16px 35px;
