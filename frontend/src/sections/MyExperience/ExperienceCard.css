@@ -115,13 +115,98 @@
   background: #ffe5e5;
 }
 
-/* Mobile */
-
+/* Mobile responsive */
 @media (max-width: 700px) {
   .experience-card {
-    align-items: flex-start;
-    padding: 25px;
+    display: grid;
+    grid-template-columns: 32px minmax(0, 1fr);
+    align-items: start;
+    column-gap: 12px;
+    padding: 20px 16px;
+    width: 100%;
+    box-sizing: border-box;
   }
+
+  .experience-icon {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    margin-top: 3px;
+  }
+
+  .experience-icon svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .experience-info {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .experience-info h3 {
+    font-size: 18px;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+    margin: 0 0 8px;
+  }
+
+  .experience-info h4 {
+    font-size: 15px;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+  }
+
+  .experience-duration {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .experience-description {
+    padding-left: 18px;
+    font-size: 13px;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+  }
+
+  .experience-actions {
+    grid-column: 2;
+    position: static;
+    display: flex;
+    gap: 8px;
+    margin: 12px 0 0;
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .edit-experience-btn,
+  .delete-experience-btn {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 380px) {
+  .experience-card {
+    grid-template-columns: 26px minmax(0, 1fr);
+    column-gap: 8px;
+    padding: 16px 12px;
+  }
+
+  .experience-icon {
+    width: 26px;
+    min-width: 26px;
+  }
+
+  .experience-info h3 {
+    font-size: 16px;
+  }
+}
+
 
   .experience-info h3 {
     font-size: 22px;

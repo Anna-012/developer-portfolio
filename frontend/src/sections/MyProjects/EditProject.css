@@ -47,6 +47,11 @@
   cursor: pointer;
 }
 
+#edit-description {
+  min-height: 180px;
+  resize: vertical;
+}
+
 .cancel-edit-btn:hover {
   background: #f5f5f5;
 }

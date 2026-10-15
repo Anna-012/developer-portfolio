@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
-import { Menu, X } from "lucide-react";
 import "./Navbar.css";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -12,7 +10,6 @@ const Navbar = () => {
     };
 
     handleScroll();
-
     window.addEventListener("scroll", handleScroll, {
       passive: true,
     });
@@ -40,17 +37,16 @@ const Navbar = () => {
         block: "start",
       });
     }
-
-    setMenuOpen(false);
   };
 
   return (
     <nav className={`navbar ${scrolled ? "navbar-scrolled" : ""}`}>
       <div className="navbar-container">
-        <div className={`navbar-links ${menuOpen ? "navbar-links-open" : ""}`}>
+        <div className="navbar-links">
           {navItems.map((item) => (
             <button
               key={item.id}
+              type="button"
               className="navbar-link"
               onClick={() => handleNavClick(item.id)}
             >
@@ -58,15 +54,6 @@ const Navbar = () => {
             </button>
           ))}
         </div>
-
-        <button
-          className="mobile-menu-btn"
-          onClick={() => setMenuOpen((prev) => !prev)}
-          aria-label={menuOpen ? "Close navigation" : "Open navigation"}
-          aria-expanded={menuOpen}
-        >
-          {menuOpen ? <X size={23} /> : <Menu size={23} />}
-        </button>
       </div>
     </nav>
   );

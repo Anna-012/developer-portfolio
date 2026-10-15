@@ -72,7 +72,7 @@ const MyProjects = () => {
             <ProjectCard
               key={project._id}
               project={project}
-              onEdit={() => setEditingProject(project)}
+              onEdit={() => navigate(`/edit-project/${project._id}`)}
               onDelete={() => handleDelete(project._id)}
             />
           ))

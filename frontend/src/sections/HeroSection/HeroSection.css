@@ -302,8 +302,8 @@
   .profile-content {
     flex-direction: column-reverse;
     align-items: flex-start;
-    gap: 24px;
-    padding-top: 45px;
+    gap: 18px;
+    padding-top: 35px;
   }
 
   .profile-text {
@@ -318,8 +318,9 @@
   .profile-image {
     flex: 0 0 auto;
     align-self: center;
-    width: 180px;
-    height: 180px;
+    width: 300px;
+    height: 140px;
+    border-radius: 12px;
   }
 
   .profile-buttons {

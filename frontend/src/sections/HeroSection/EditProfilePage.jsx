@@ -29,7 +29,7 @@ const EditProfilePage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (wordCount > 50) {
+    if (wordCount > 80) {
       setError("Profile summary must not exceed 50 words.");
       return;
     }
@@ -86,7 +86,7 @@ const EditProfilePage = () => {
         </label>
 
         <label>
-          Profile Summary (maximum 50 words)
+          Profile Summary (maximum 80 words)
           <textarea
             name="shortBio"
             value={formData.shortBio || ""}
@@ -94,8 +94,8 @@ const EditProfilePage = () => {
             rows={4}
             required
           />
-          <span className={wordCount > 50 ? "word-error" : "word-count"}>
-            {wordCount}/50 words
+          <span className={wordCount > 80 ? "word-error" : "word-count"}>
+            {wordCount}/80 words
           </span>
         </label>
 
