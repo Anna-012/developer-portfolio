@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/api/contact";
+const API_URL = "https://developer-portfolio-q0a0.onrender.com/api/contact";
 
 // Get contact information
 export const getContact = async () => {
